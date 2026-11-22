@@ -1,0 +1,15 @@
+# Сборка
+target/
+*.jar
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Секреты — НИКОГДА не коммитим
+.env
+
+# macOS
+.DS_Store

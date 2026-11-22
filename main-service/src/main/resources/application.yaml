@@ -1,0 +1,62 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/rental_manager}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/master.xml
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${EMAIL_ADDRESS}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_SMTP_AUTH:true}
+          starttls:
+            enable: ${MAIL_STARTTLS:true}
+            required: ${MAIL_STARTTLS:true}
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+
+logging:
+  level:
+    liquibase: INFO
+    com.rental.manager: INFO
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
+
+app:
+  backend:
+    url: ${APP_BACKEND_URL:http://localhost:8080}
+  frontend:
+    url: ${APP_FRONTEND_URL:http://localhost:3000}
+  email:
+    max-attempts: 3
+  contract:
+    lessor-company: "Maestro Realty Co., Ltd"
+    lessor-registration-number: "0835567013712"
+    lessor-address: "79/113 Moo.7 Rawai, Muang Phuket 83130"
+    lessor-director: "Elena Lozovaya"
+    currency: "Thai baht"
+    check-in-time: "after 2PM"
+    check-out-time: "before 12PM"
+    smoking-fine: "20,000 THB"
+
+geocoding:
+  nominatim:
+    url: https://nominatim.openstreetmap.org
+    user-agent: RentalManagerApp/1.0
