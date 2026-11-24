@@ -1,5 +1,7 @@
 package com.rental.logging;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,7 +17,13 @@ public class ControllerLoggingAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ControllerLoggingAspect controllerLoggingAspect() {
-        return new ControllerLoggingAspect();
+    public ControllerLoggingAspect controllerLoggingAspect(SensitiveDataMasker masker) {
+        return new ControllerLoggingAspect(masker);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public SensitiveDataMasker sensitiveDataMasker(ControllerLoggingProperties properties, ObjectProvider<ObjectMapper> objectMapper) {
+        return new SensitiveDataMasker(objectMapper.getIfAvailable(ObjectMapper::new), properties.getMaskedFields());
     }
 }
