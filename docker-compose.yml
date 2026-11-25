@@ -27,5 +27,11 @@ services:
       timeout: 5s
       retries: 5
 
+  kafka:
+    image: apache/kafka:3.9.0
+    container_name: rental-kafka
+    ports:
+      - "9092:9092"
+
 volumes:
   postgres-data:
