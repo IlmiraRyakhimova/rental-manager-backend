@@ -18,7 +18,7 @@ public class EmailQueueConsumer {
     public static final String EMAIL_QUEUE_KEY = "emailQueue";
 
     private final RedisTemplate<String, Object> redisTemplate;
-    private final EmailService emailService;
+    private final EmailTaskHandler emailTaskHandler;
 
     @Value("${app.email.max-attempts:3}")
     private int maxAttempts;
@@ -41,41 +41,13 @@ public class EmailQueueConsumer {
         }
 
         try {
-            process(dto);
+            emailTaskHandler.handle(dto);
             log.info("Email-задача {} для {} обработана успешно", dto.getTaskType(), dto.getTo());
         } catch (Exception e) {
             retryOrDrop(dto, e);
         }
     }
 
-    private void process(EmailTaskRequestDto dto) {
-        switch (dto.getTaskType()) {
-            case EMAIL_VERIFICATION -> emailService.createAndSendVerificationToken(dto.getTo());
-            case OWNER_CREDENTIALS -> {
-                emailService.sendOwnerCredentialsEmail(dto.getTo(), dto.getOwnerName(), dto.getOwnerPassword());
-                emailService.createAndSendVerificationToken(dto.getTo());
-            }
-            case RESEND_OWNER_CREDENTIALS -> emailService.resendOwnerCredentialsEmail(dto.getTo());
-            case FORGOT_PASSWORD -> emailService.createAndSendPasswordResetToken(dto.getTo());
-            case BOOKING_INFO_TO_GUEST -> emailService.sendBookingInfoToGuest(
-                    dto.getTo(),
-                    dto.getGuestName(),
-                    dto.getBookingCode(),
-                    dto.getCheckIn(),
-                    dto.getCheckOut(),
-                    dto.getPrice()
-            );
-            case BOOKING_INFO_TO_OWNER -> emailService.sendBookingInfoToOwner(
-                    dto.getTo(),
-                    dto.getOwnerName(),
-                    dto.getGuestName(),
-                    dto.getBookingCode(),
-                    dto.getCheckIn(),
-                    dto.getCheckOut(),
-                    dto.getPrice()
-            );
-        }
-    }
 
     private void retryOrDrop(EmailTaskRequestDto dto, Exception e) {
         int attempts = dto.getAttempts() + 1;

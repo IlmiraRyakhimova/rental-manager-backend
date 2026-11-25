@@ -24,6 +24,5 @@ public class EmailTaskRequestDto implements Serializable {
     private LocalDate checkOut;
     private BigDecimal price;
     private EmailTaskType taskType;
-    /** Счётчик попыток отправки — используется консьюмером очереди для ретраев. */
     private int attempts;
 }
