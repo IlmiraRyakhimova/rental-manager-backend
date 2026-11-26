@@ -43,7 +43,7 @@ public class KafkaConfig {
         backOff.setMaxAttempts(3);
 
         DefaultErrorHandler errorHandler = new DefaultErrorHandler(recoverer, backOff);
-        errorHandler.addNotRetryableExceptions(IllegalAccessException.class, EntityNotFoundException.class);
+        errorHandler.addNotRetryableExceptions(IllegalArgumentException.class, EntityNotFoundException.class);
 
         return errorHandler;
     }

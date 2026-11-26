@@ -1,8 +1,10 @@
 package com.rental.manager;
 
+import com.rental.manager.service.EmailService;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.kafka.KafkaContainer;
 
@@ -20,5 +22,8 @@ public abstract class IntegrationTestBase {
         POSTGRES.start();
         KAFKA.start();
     }
+
+    @MockitoBean
+    protected EmailService emailService;
 
 }

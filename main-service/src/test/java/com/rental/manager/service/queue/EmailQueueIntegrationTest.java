@@ -16,9 +16,6 @@ class EmailQueueIntegrationTest extends IntegrationTestBase {
     @Autowired
     private EmailQueueProducer producer;
 
-    @MockitoBean
-    private EmailService emailService;
-
     @Test
 
     void emailTaskTravelsThroughKafkaToHandler() {
