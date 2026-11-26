@@ -15,17 +15,11 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-
-  redis:
-    image: redis:7.2
-    container_name: rental-redis
+  kafka:
+    image: apache/kafka:3.9.1
+    container_name: rental-kafka
     ports:
-      - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - "9092:9092"
 
 volumes:
   postgres-data:
