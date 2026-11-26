@@ -4,7 +4,7 @@ Backend сервиса для автоматизации управления а
 В процессе миграции с монолита на микросервисы с Apache Kafka.
 
 ## Стек
-Java 17, Spring Boot 3, PostgreSQL, Redis, Docker
+Java 17, Spring Boot 3, PostgreSQL, Kafka, Docker
 
 ## Структура проекта
 Многомодульный Maven-проект:
@@ -16,7 +16,7 @@ Java 17, Spring Boot 3, PostgreSQL, Redis, Docker
 
 ## Локальный запуск
 1. `cp .env.example .env` и заполнить значения
-2. `docker compose up -d` — поднять Postgres (порт 5434) и Redis
+2. `docker compose up -d` — поднять Postgres (порт 5434) и Kafka
 3. Собрать и запустить из корня проекта:
    ```bash
    ./mvnw install -pl main-service -am -DskipTests

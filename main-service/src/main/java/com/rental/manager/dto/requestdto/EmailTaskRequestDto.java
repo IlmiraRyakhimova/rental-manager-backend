@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -14,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailTaskRequestDto implements Serializable {
+public class EmailTaskRequestDto  {
     private String to;
     private String ownerName;
     private String ownerPassword;
@@ -24,5 +23,4 @@ public class EmailTaskRequestDto implements Serializable {
     private LocalDate checkOut;
     private BigDecimal price;
     private EmailTaskType taskType;
-    private int attempts;
 }
