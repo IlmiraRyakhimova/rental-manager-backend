@@ -28,10 +28,6 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
     List<Booking> findByApartmentOwnerEmailContainingIgnoreCase(String ownerEmail);
     List<Booking> findByApartmentOwnerPhoneNumberContainingIgnoreCase(String ownerPhoneNumber);
 
-    /**
-     * Бронирования того же апартамента, пересекающиеся с интервалом [checkIn, checkOut),
-     * кроме отменённых и (при обновлении) самого редактируемого бронирования.
-     */
     @Query("""
             select b from Booking b
             where b.apartment.id = :apartmentId

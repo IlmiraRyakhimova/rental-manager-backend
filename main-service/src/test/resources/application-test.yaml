@@ -6,3 +6,7 @@ spring:
 jwt:
   secret: EwWyoK4AT0qERVb5sMI6Vum5N1IM7Evrh971npVNGDVyXN8iMgJVd6lVGRhPxL9PgzujrTdDdxE/lm09VGOZlw==
   expiration: 3600000
+
+app:
+  outbox:
+    poll-interval-ms: 200
