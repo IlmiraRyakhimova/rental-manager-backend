@@ -8,6 +8,7 @@
     <include file="db/changelog/sql/001-add-users-table.sql"/>
 <!--    <include file="db/changelog/sql/002-add-test-data.sql"/>-->
     <include file="db/changelog/sql/003-contract-fields-and-schema-fixes.sql"/>
+    <include file="db/changelog/sql/004-add-outbox-table.sql"/>
 </databaseChangeLog>
 
 <!--1) создать файл sql с помощью скрипта new-migration.sh или вручную
